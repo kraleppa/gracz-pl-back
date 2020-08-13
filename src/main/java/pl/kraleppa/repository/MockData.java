@@ -28,7 +28,7 @@ public class MockData {
 
             gameRepository.save(new Game(
                     "The last of us",
-                    169.99,
+                    420.99,
                     Genre.ACTION,
                     Console.PLAYSTATION_4,
                     "Średnio fajna giera :(",
@@ -37,7 +37,7 @@ public class MockData {
 
             gameRepository.save(new Game(
                     "Mario Kart",
-                    169.99,
+                    21.37,
                     Genre.RACING,
                     Console.NINTENDO_SWITCH,
                     "Średnio fajna giera :(",
