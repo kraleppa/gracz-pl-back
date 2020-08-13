@@ -21,7 +21,7 @@ public class MockData {
                     "Butterfield 4",
                     69.99,
                     Genre.SHOOTING,
-                    Console.PC,
+                    Console.XBOX_360,
                     "Fajna giera ogólnie polecam",
                     "https://rockmetalshop.pl/pol_pl_plakat-BATTLEFIELD-4-COVER-151108_1.jpg"
             ));
