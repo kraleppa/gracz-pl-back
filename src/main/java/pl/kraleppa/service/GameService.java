@@ -25,4 +25,8 @@ public class GameService {
         return gameRepository.findAll(Example.of(example), PageRequest.of(page.orElse(0), size.orElse(10)));
     }
 
+    public Game addGame(Game game){
+        return gameRepository.save(game);
+    }
+
 }
