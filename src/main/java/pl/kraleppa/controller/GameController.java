@@ -25,6 +25,21 @@ public class GameController {
         return gameService.getAll(page, size, console);
     }
 
+    @GetMapping("/{gameId}")
+    public ResponseEntity<Object> getGameById(@PathVariable Long gameId){
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(gameService.getGameById(gameId).orElseThrow(
+                            () -> new IllegalArgumentException("Game does not exist"))
+                    );
+        } catch (IllegalArgumentException e){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.toString());
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Object> postGame(@RequestBody Game game){
         try {
@@ -36,9 +51,5 @@ public class GameController {
                     .status(HttpStatus.BAD_REQUEST)
                     .body(e.toString());
         }
-
-
-
     }
-
 }
