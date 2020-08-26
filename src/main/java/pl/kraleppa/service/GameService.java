@@ -33,4 +33,13 @@ public class GameService {
         return gameRepository.findById(gameId);
     }
 
+    public Game editGame(Game game, Long gameId){
+        game.setGameId(gameId);
+        return gameRepository.save(game);
+    }
+
+    public void deleteGame(Long gameId){
+        gameRepository.deleteById(gameId);
+    }
+
 }

@@ -1,5 +1,6 @@
 package pl.kraleppa.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,33 @@ public class GameController {
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
+                    .body(e.toString());
+        }
+    }
+
+    @PutMapping("/{gameId}")
+    public ResponseEntity<Object> putGame(@RequestBody Game game, @PathVariable Long gameId){
+        try{
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(this.gameService.editGame(game, gameId));
+        } catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_MODIFIED)
+                    .body(e.toString());
+        }
+    }
+
+    @DeleteMapping("/{gameId}")
+    public ResponseEntity<Object> deleteGame(@PathVariable Long gameId){
+        try {
+            gameService.deleteGame(gameId);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(null);
+        } catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_MODIFIED)
                     .body(e.toString());
         }
     }
