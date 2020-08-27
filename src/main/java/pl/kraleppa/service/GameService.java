@@ -34,8 +34,8 @@ public class GameService {
 
         return gameRepository.findAll(Example.of(example),
                 PageRequest.of(page.orElse(0), size.orElse(10),
-                        ascending.orElse(true) ? Sort.by(sortBy.orElse("gameId")).ascending() :
-                                Sort.by(sortBy.orElse("gameId")).descending()
+                        ascending.orElse(true) ? Sort.by(sortBy.orElse("gameId")).ascending().and(Sort.by("gameId")) :
+                                Sort.by(sortBy.orElse("gameId")).descending().and(Sort.by("gameId"))
                         )
         );
 
