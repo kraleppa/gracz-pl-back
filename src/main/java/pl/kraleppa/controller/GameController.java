@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kraleppa.model.Game;
 import pl.kraleppa.model.dictionary.Console;
+import pl.kraleppa.model.dictionary.Genre;
 import pl.kraleppa.service.GameService;
 
 import java.util.Optional;
@@ -21,9 +22,11 @@ public class GameController {
 
     @GetMapping
     public Page<Game> getAll(@RequestParam Optional<Integer> page,
-                              @RequestParam Optional<Integer> size,
-                              @RequestParam Optional<Console> console){
-        return gameService.getAll(page, size, console);
+                             @RequestParam Optional<Integer> size,
+                             @RequestParam Optional<Console> console,
+                             @RequestParam Optional<Genre> genre,
+                             @RequestParam Optional<String> name){
+        return gameService.getAll(page, size, console, genre, name);
     }
 
     @GetMapping("/{gameId}")

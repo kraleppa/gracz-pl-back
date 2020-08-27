@@ -43,6 +43,24 @@ public class MockData {
                     "Średnio fajna giera :(",
                     "https://i0.wp.com/www.semperludo.com/wp-content/uploads/2017/04/Mario-Kart-8-Deluxe-Switch-cover.jpg?fit=456%2C738&ssl=1"
             ));
+
+            gameRepository.save(new Game(
+                    "Forza",
+                    19.99,
+                    Genre.RACING,
+                    Console.XBOX_ONE,
+                    "Fajna giera ogólnie polecam",
+                    "https://www.mobygames.com/images/covers/l/315940-forza-motorsport-6-xbox-one-front-cover.png"
+            ));
+
+            gameRepository.save(new Game(
+                    "Gran Turismo",
+                    12.33,
+                    Genre.RACING,
+                    Console.PLAYSTATION_4,
+                    "Średnio fajna giera :(",
+                    "https://ecsmedia.pl/c/gran-turismo-sport-ps-hits-b-iext55519998.jpg"
+            ));
         }
     }
 }
