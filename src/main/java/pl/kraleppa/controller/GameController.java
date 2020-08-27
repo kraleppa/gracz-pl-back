@@ -21,12 +21,22 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping
-    public Page<Game> getAll(@RequestParam Optional<Integer> page,
+    public ResponseEntity<Object> getAll(@RequestParam Optional<Integer> page,
                              @RequestParam Optional<Integer> size,
                              @RequestParam Optional<Console> console,
                              @RequestParam Optional<Genre> genre,
-                             @RequestParam Optional<String> name){
-        return gameService.getAll(page, size, console, genre, name);
+                             @RequestParam Optional<String> name,
+                             @RequestParam Optional<String> sortBy,
+                             @RequestParam Optional<Boolean> ascending){
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(gameService.getAll(page, size, console, genre, name, sortBy, ascending));
+        } catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.toString());
+        }
     }
 
     @GetMapping("/{gameId}")

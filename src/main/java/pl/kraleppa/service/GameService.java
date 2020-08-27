@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pl.kraleppa.model.Game;
 import pl.kraleppa.model.dictionary.Console;
@@ -21,7 +22,9 @@ public class GameService {
                              Optional<Integer> size,
                              Optional<Console> console,
                              Optional<Genre> genre,
-                             Optional<String> name){
+                             Optional<String> name,
+                             Optional<String> sortBy,
+                             Optional <Boolean> ascending){
         Game example = Game
                 .builder()
                 .console(console.orElse(null))
@@ -29,7 +32,12 @@ public class GameService {
                 .name(name.orElse(null))
                 .build();
 
-        return gameRepository.findAll(Example.of(example), PageRequest.of(page.orElse(0), size.orElse(10)));
+        return gameRepository.findAll(Example.of(example),
+                PageRequest.of(page.orElse(0), size.orElse(10),
+                        ascending.orElse(true) ? Sort.by(sortBy.orElse("gameId")).ascending() :
+                                Sort.by(sortBy.orElse("gameId")).descending()
+                        )
+        );
 
     }
 
