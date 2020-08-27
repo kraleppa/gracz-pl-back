@@ -18,7 +18,7 @@ public class MockData {
 
         for (int i = 0; i < 30; i++){
             gameRepository.save(new Game(
-                    "Hejlo",
+                    "Hejlo"+i,
                     69.99,
                     Genre.SHOOTING,
                     Console.XBOX_ONE,
@@ -27,7 +27,7 @@ public class MockData {
             ));
 
             gameRepository.save(new Game(
-                    "The last of us",
+                    "The last of us"+i,
                     420.99,
                     Genre.ACTION,
                     Console.PLAYSTATION_4,
@@ -36,7 +36,7 @@ public class MockData {
             ));
 
             gameRepository.save(new Game(
-                    "Mario Kart",
+                    "Mario Kart"+i,
                     21.37,
                     Genre.RACING,
                     Console.NINTENDO_SWITCH,
@@ -45,7 +45,7 @@ public class MockData {
             ));
 
             gameRepository.save(new Game(
-                    "Forza",
+                    "Forza"+i,
                     19.99,
                     Genre.RACING,
                     Console.XBOX_ONE,
@@ -54,7 +54,7 @@ public class MockData {
             ));
 
             gameRepository.save(new Game(
-                    "Gran Turismo",
+                    "Gran Turismo"+i,
                     12.33,
                     Genre.RACING,
                     Console.PLAYSTATION_4,
