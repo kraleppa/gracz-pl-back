@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import pl.kraleppa.model.Game;
+import pl.kraleppa.model.entity.Game;
 import pl.kraleppa.model.dictionary.Console;
 import pl.kraleppa.model.dictionary.Genre;
 import pl.kraleppa.repository.GameRepository;

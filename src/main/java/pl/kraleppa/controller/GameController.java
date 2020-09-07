@@ -1,12 +1,10 @@
 package pl.kraleppa.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.kraleppa.model.Game;
+import pl.kraleppa.model.entity.Game;
 import pl.kraleppa.model.dictionary.Console;
 import pl.kraleppa.model.dictionary.Genre;
 import pl.kraleppa.service.GameService;

@@ -1,4 +1,4 @@
-package pl.kraleppa.model;
+package pl.kraleppa.model.entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -35,14 +35,4 @@ public class Game {
 
     @NotNull
     private String imageUrl;
-
-
-    public Game(String name, double price, Genre genre, Console console, String description, String imageUrl) {
-        this.name = name;
-        this.price = price;
-        this.genre = genre;
-        this.console = console;
-        this.description = description;
-        this.imageUrl = imageUrl;
-    }
 }
