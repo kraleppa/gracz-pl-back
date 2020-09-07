@@ -19,7 +19,7 @@ public class MyUserDetails implements UserDetails {
         this.userName = user.getUserName();
         this.password = user.getPassword();
         this.active = user.isActive();
-        this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
+        this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()));
     }
 
     @Override

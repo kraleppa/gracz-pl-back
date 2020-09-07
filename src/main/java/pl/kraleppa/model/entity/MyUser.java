@@ -2,11 +2,9 @@ package pl.kraleppa.model.entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import pl.kraleppa.model.dictionary.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -27,6 +25,6 @@ public class MyUser {
 
     private boolean active;
 
-    @NotNull
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

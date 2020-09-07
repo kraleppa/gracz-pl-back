@@ -2,6 +2,7 @@ package pl.kraleppa.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.kraleppa.model.dictionary.Role;
 import pl.kraleppa.model.entity.Game;
 import pl.kraleppa.model.dictionary.Console;
 import pl.kraleppa.model.dictionary.Genre;
@@ -22,7 +23,7 @@ public class MockData {
                 .userName("kraleppa")
                 .password("password")
                 .active(true)
-                .role("ADMIN")
+                .role(Role.ADMIN)
                 .build()
         );
 
@@ -30,7 +31,7 @@ public class MockData {
                 .userName("krzychu")
                 .password("password")
                 .active(true)
-                .role("USER")
+                .role(Role.USER)
                 .build()
         );
 
