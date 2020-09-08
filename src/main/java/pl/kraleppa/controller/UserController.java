@@ -16,7 +16,7 @@ public class UserController {
     private final MyUserService myUserService;
 
     @PostMapping
-    public ResponseEntity<Object> postGame(@RequestBody MyUser myUser){
+    public ResponseEntity<Object> postUser(@RequestBody MyUser myUser){
         try {
             return ResponseEntity
                     .status(HttpStatus.CREATED)
