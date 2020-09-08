@@ -1,6 +1,6 @@
 package pl.kraleppa.model.dictionary;
 
 public enum Role {
-    ADMIN,
-    USER
+    ROLE_ADMIN,
+    ROLE_USER
 }

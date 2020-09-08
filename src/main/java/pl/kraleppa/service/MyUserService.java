@@ -12,7 +12,7 @@ public class MyUserService{
     private final MyUserRepository myUserRepository;
 
     public MyUser addUser(MyUser myUser){
-        myUser.setRole(Role.USER);
+        myUser.setRole(Role.ROLE_USER);
         return myUserRepository.save(myUser);
     }
 }

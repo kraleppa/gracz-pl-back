@@ -25,7 +25,7 @@ public class MockData {
                 .email("email@costam.pl")
                 .name("Krzysztof")
                 .surname("Nalepa")
-                .role(Role.ADMIN)
+                .role(Role.ROLE_ADMIN)
                 .address("Krakowska 1")
                 .city("Bibice")
                 .zip("32-087")
