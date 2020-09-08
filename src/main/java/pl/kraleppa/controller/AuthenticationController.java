@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import pl.kraleppa.model.request.AuthenticationRequest;
 import pl.kraleppa.model.request.AuthenticationResponse;
-import pl.kraleppa.service.UserService;
+import pl.kraleppa.service.MyUserDetailsService;
 import pl.kraleppa.util.JwtUtil;
 
 @CrossOrigin
@@ -18,18 +18,18 @@ import pl.kraleppa.util.JwtUtil;
 @RequestMapping("/authenticate")
 @RequiredArgsConstructor
 public class AuthenticationController {
-    private final UserService userService;
+    private final MyUserDetailsService myUserDetailsService;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
 
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Object> createAuthenticationToken(@RequestBody AuthenticationRequest request) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
             );
-            UserDetails userDetails = userService
+            UserDetails userDetails = myUserDetailsService
                     .loadUserByUsername(request.getUsername());
 
             String jwt = jwtUtil.generateToken(userDetails);

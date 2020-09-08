@@ -6,17 +6,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.kraleppa.model.MyUserDetails;
-import pl.kraleppa.repository.UserRepository;
+import pl.kraleppa.repository.MyUserRepository;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
+public class MyUserDetailsService implements UserDetailsService {
+    private final MyUserRepository myUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return new MyUserDetails(userRepository.findUserByUserName(userName).orElseThrow(
-                () -> new UsernameNotFoundException(userName + " not found")
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return new MyUserDetails(myUserRepository.findUserByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException(username + " not found")
         ));
     }
 }

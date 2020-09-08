@@ -1,5 +1,6 @@
 package pl.kraleppa.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.*;
 import pl.kraleppa.model.dictionary.Role;
@@ -18,13 +19,32 @@ public class MyUser {
     private Long id;
 
     @NotNull
-    private String userName;
+    @Column(unique=true)
+    private String username;
 
     @NotNull
     private String password;
 
-    private boolean active;
-
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @NotNull
+    @Column(unique=true)
+    private String email;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String surname;
+
+    @NotNull
+    private String address;
+
+    @NotNull
+    private String city;
+
+    @NotNull
+    private String zip;
+
 }

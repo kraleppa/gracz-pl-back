@@ -5,6 +5,6 @@ import pl.kraleppa.model.entity.MyUser;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<MyUser, Long> {
-    Optional<MyUser> findUserByUserName(String userName);
+public interface MyUserRepository extends JpaRepository<MyUser, Long> {
+    Optional<MyUser> findUserByUsername(String username);
 }

@@ -12,13 +12,11 @@ import java.util.List;
 public class MyUserDetails implements UserDetails {
     private final String userName;
     private final String password;
-    private final boolean active;
     private final List<GrantedAuthority> authorities;
 
     public MyUserDetails(MyUser user) {
-        this.userName = user.getUserName();
+        this.userName = user.getUsername();
         this.password = user.getPassword();
-        this.active = user.isActive();
         this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()));
     }
 
@@ -54,6 +52,6 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return active;
+        return true;
     }
 }

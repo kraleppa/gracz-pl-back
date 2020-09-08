@@ -14,24 +14,21 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class MockData {
     private final GameRepository gameRepository;
-    private final UserRepository userRepository;
+    private final MyUserRepository myUserRepository;
 
     @PostConstruct
     public void gameInit(){
 
-        userRepository.save(MyUser.builder()
-                .userName("kraleppa")
+        myUserRepository.save(MyUser.builder()
+                .username("kraleppa")
                 .password("password")
-                .active(true)
+                .email("email@costam.pl")
+                .name("Krzysztof")
+                .surname("Nalepa")
                 .role(Role.ADMIN)
-                .build()
-        );
-
-        userRepository.save(MyUser.builder()
-                .userName("krzychu")
-                .password("password")
-                .active(true)
-                .role(Role.USER)
+                .address("Krakowska 1")
+                .city("Bibice")
+                .zip("32-087")
                 .build()
         );
 
