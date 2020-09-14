@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kraleppa.model.entity.MyUser;
 import pl.kraleppa.service.MyUserService;
+import pl.kraleppa.util.JwtUtil;
 
 @CrossOrigin
 @RestController
@@ -14,6 +15,7 @@ import pl.kraleppa.service.MyUserService;
 @RequiredArgsConstructor
 public class UserController {
     private final MyUserService myUserService;
+    private final JwtUtil jwtUtil;
 
     @PostMapping
     public ResponseEntity<Object> postUser(@RequestBody MyUser myUser){
@@ -22,6 +24,20 @@ public class UserController {
                     .status(HttpStatus.CREATED)
                     .body(this.myUserService.addUser(myUser));
         } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.toString());
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Object> getUser(@RequestHeader("Authorization") String jwt){
+        try {
+            String username = jwtUtil.extractUsername(jwt.split(" ")[1]);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(myUserService.getUser(username));
+        } catch (Exception e){
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(e.toString());

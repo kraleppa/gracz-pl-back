@@ -15,4 +15,9 @@ public class MyUserService{
         myUser.setRole(Role.ROLE_USER);
         return myUserRepository.save(myUser);
     }
+
+    public MyUser getUser(String username){
+        return myUserRepository.findUserByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
 }
