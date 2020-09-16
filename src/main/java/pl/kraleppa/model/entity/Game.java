@@ -1,11 +1,13 @@
 package pl.kraleppa.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.*;
 import pl.kraleppa.model.dictionary.Console;
 import pl.kraleppa.model.dictionary.Genre;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,4 +37,8 @@ public class Game {
 
     @NotNull
     private String imageUrl;
+
+    @JsonIgnore
+    @ManyToMany(fetch=FetchType.EAGER)
+    private List<MyUser> userList;
 }

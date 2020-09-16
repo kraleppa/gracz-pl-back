@@ -7,6 +7,7 @@ import lombok.*;
 import pl.kraleppa.model.dictionary.Role;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -50,4 +51,12 @@ public class MyUser {
     @NotNull
     private String zip;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "userList", fetch=FetchType.EAGER)
+    private List<Game> basket;
+
+    public void insertGameToBasket(Game game){
+        this.basket.add(game);
+        game.getUserList().add(this);
+    }
 }
