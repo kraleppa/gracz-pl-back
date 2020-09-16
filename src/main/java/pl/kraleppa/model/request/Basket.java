@@ -17,12 +17,14 @@ public class Basket {
     public Basket(List<Game> gameList) {
         this.gameList = gameList;
         this.totalPrice = gameList.stream().map(Game::getPrice).reduce(0.0, Double::sum);
+        this.totalPrice = Math.round(this.totalPrice * 100.0) / 100.0;
         this.numberOfElements = gameList.size();
     }
 
     public void setGameList(List<Game> gameList) {
         this.gameList = gameList;
         this.totalPrice = gameList.stream().map(Game::getPrice).reduce(0.0, Double::sum);
+        this.totalPrice = Math.round(this.totalPrice * 100.0) / 100.0;
         this.numberOfElements = gameList.size();
     }
 }
