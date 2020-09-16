@@ -1,10 +1,13 @@
 package pl.kraleppa.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.kraleppa.model.dictionary.Role;
 import pl.kraleppa.model.entity.MyUser;
 import pl.kraleppa.repository.MyUserRepository;
+
+import java.lang.reflect.Field;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +21,19 @@ public class MyUserService{
 
     public MyUser getUser(String username){
         return myUserRepository.findUserByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public MyUser modifyUser(String username, MyUser myUser) throws Exception {
+        MyUser user = getUser(username);
+
+        for (Field field : myUser.getClass().getDeclaredFields()){
+            field.setAccessible(true);
+            if (field.get(myUser) != null){
+                field.set(user, field.get(myUser));
+            }
+        }
+
+        return myUserRepository.save(user);
     }
 }

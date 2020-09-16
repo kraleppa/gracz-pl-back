@@ -43,4 +43,20 @@ public class UserController {
                     .body(e.toString());
         }
     }
+
+    @PatchMapping
+    public ResponseEntity<Object> patchUser(@RequestHeader("Authorization") String jwt, @RequestBody MyUser myUser){
+        try {
+
+            String username = jwtUtil.extractUsername(jwt.split(" ")[1]);
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(myUserService.modifyUser(username, myUser));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_MODIFIED)
+                    .body(e.toString());
+        }
+    }
 }

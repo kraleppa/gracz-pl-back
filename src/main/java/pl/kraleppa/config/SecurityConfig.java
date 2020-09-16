@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/v1/users").authenticated()
+                .antMatchers(HttpMethod.PATCH, "/api/v1/users").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/api/v1/games/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/v1/games/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/v1/games").hasRole("ADMIN")
