@@ -34,4 +34,18 @@ public class BasketService {
 
         return new Basket(myUser.getBasket());
     }
+
+    public Basket deleteGameFromBasket(String username, Long gameId){
+        MyUser myUser = myUserRepository.findUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new IllegalArgumentException("Game not found"));
+
+        myUser.deleteGameFromBasket(game);
+
+        myUserRepository.save(myUser);
+        gameRepository.save(game);
+
+        return new Basket(myUser.getBasket());
+    }
 }

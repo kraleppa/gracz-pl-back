@@ -8,6 +8,7 @@ import pl.kraleppa.model.dictionary.Role;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -58,5 +59,10 @@ public class MyUser {
     public void insertGameToBasket(Game game){
         this.basket.add(game);
         game.getUserList().add(this);
+    }
+
+    public void deleteGameFromBasket(Game game){
+        this.setBasket(this.basket.stream().filter(g -> !g.getGameId().equals(game.getGameId())).collect(Collectors.toList()));
+        game.setUserList(game.getUserList().stream().filter(u -> !u.id.equals(this.id)).collect(Collectors.toList()));
     }
 }

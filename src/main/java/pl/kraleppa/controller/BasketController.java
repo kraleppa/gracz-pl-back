@@ -45,4 +45,19 @@ public class BasketController {
                     .body(e.toString());
         }
     }
+
+    @DeleteMapping
+    public ResponseEntity<Object> deleteGameFromBasket(@RequestHeader("Authorization") String jwt,
+                                                       @RequestParam Optional<Long> gameId){
+        try {
+            String username = jwtUtil.extractUsername(jwt.split(" ")[1]);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(basketService.deleteGameFromBasket(username, gameId.orElseThrow(IllegalArgumentException::new)));
+        } catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.toString());
+        }
+    }
 }
