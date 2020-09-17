@@ -9,8 +9,11 @@ import pl.kraleppa.model.request.Basket;
 import pl.kraleppa.repository.GameRepository;
 import pl.kraleppa.repository.MyUserRepository;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BasketService {
     private final GameRepository gameRepository;
     private final MyUserRepository myUserRepository;

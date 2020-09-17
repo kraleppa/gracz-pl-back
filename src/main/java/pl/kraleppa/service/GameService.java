@@ -11,10 +11,12 @@ import pl.kraleppa.model.dictionary.Console;
 import pl.kraleppa.model.dictionary.Genre;
 import pl.kraleppa.repository.GameRepository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class GameService {
     private final GameRepository gameRepository;
 

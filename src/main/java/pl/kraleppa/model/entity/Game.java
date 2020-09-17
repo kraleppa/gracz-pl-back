@@ -39,6 +39,11 @@ public class Game {
     private String imageUrl;
 
     @JsonIgnore
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<MyUser> userList;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Order> orderList;
+
 }

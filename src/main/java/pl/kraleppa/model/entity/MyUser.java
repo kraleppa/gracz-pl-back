@@ -7,6 +7,7 @@ import lombok.*;
 import pl.kraleppa.model.dictionary.Role;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,16 +54,25 @@ public class MyUser {
     private String zip;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "userList", fetch=FetchType.EAGER)
-    private List<Game> basket;
+    @ManyToMany(mappedBy = "userList", fetch=FetchType.LAZY)
+    private List<Game> basket = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Order> orderList;
 
     public void insertGameToBasket(Game game){
-        this.basket.add(game);
+        this.getBasket().add(game);
         game.getUserList().add(this);
     }
 
     public void deleteGameFromBasket(Game game){
         this.setBasket(this.basket.stream().filter(g -> !g.getGameId().equals(game.getGameId())).collect(Collectors.toList()));
         game.setUserList(game.getUserList().stream().filter(u -> !u.id.equals(this.id)).collect(Collectors.toList()));
+    }
+
+    public void addOrder(Order order){
+        this.getOrderList().add(order);
+        order.setUser(this);
     }
 }

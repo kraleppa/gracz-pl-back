@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import pl.kraleppa.model.MyUserDetails;
 import pl.kraleppa.repository.MyUserRepository;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MyUserDetailsService implements UserDetailsService {
     private final MyUserRepository myUserRepository;
 

@@ -11,20 +11,17 @@ import java.util.List;
 @Getter
 public class Basket {
     private List<Game> gameList;
-    private int numberOfElements;
     private double totalPrice;
 
     public Basket(List<Game> gameList) {
         this.gameList = gameList;
         this.totalPrice = gameList.stream().map(Game::getPrice).reduce(0.0, Double::sum);
         this.totalPrice = Math.round(this.totalPrice * 100.0) / 100.0;
-        this.numberOfElements = gameList.size();
     }
 
     public void setGameList(List<Game> gameList) {
         this.gameList = gameList;
         this.totalPrice = gameList.stream().map(Game::getPrice).reduce(0.0, Double::sum);
         this.totalPrice = Math.round(this.totalPrice * 100.0) / 100.0;
-        this.numberOfElements = gameList.size();
     }
 }

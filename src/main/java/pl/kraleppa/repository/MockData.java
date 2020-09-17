@@ -8,6 +8,7 @@ import pl.kraleppa.model.dictionary.Console;
 import pl.kraleppa.model.dictionary.Genre;
 import pl.kraleppa.model.entity.MyUser;
 import pl.kraleppa.service.BasketService;
+import pl.kraleppa.service.OrderService;
 
 import javax.annotation.PostConstruct;
 
@@ -17,6 +18,7 @@ public class MockData {
     private final GameRepository gameRepository;
     private final MyUserRepository myUserRepository;
     private final BasketService basketService;
+    private final OrderService orderService;
 
     @PostConstruct
     public void gameInit(){
@@ -86,8 +88,9 @@ public class MockData {
                     .build()
             );
         }
-
-        basketService.addGameToBasket("kraleppa", 3L);
         basketService.addGameToBasket("kraleppa", 17L);
+
+        orderService.createOrder("kraleppa");
+
     }
 }

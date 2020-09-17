@@ -7,10 +7,12 @@ import pl.kraleppa.model.dictionary.Role;
 import pl.kraleppa.model.entity.MyUser;
 import pl.kraleppa.repository.MyUserRepository;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.Field;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MyUserService{
     private final MyUserRepository myUserRepository;
 
