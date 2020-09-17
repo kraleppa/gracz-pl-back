@@ -1,12 +1,14 @@
 package pl.kraleppa.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Component;
 import pl.kraleppa.model.dictionary.Role;
 import pl.kraleppa.model.entity.Game;
 import pl.kraleppa.model.dictionary.Console;
 import pl.kraleppa.model.dictionary.Genre;
 import pl.kraleppa.model.entity.MyUser;
+import pl.kraleppa.model.request.OrderOptions;
 import pl.kraleppa.service.BasketService;
 import pl.kraleppa.service.OrderService;
 
@@ -90,7 +92,7 @@ public class MockData {
         }
         basketService.addGameToBasket("kraleppa", 17L);
 
-        orderService.createOrder("kraleppa");
+        orderService.createOrder("kraleppa", new OrderOptions(2.0, "DHL", "Pobranie"));
 
     }
 }

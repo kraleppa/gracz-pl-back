@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import pl.kraleppa.model.entity.MyUser;
 import pl.kraleppa.model.entity.Order;
 import pl.kraleppa.model.request.Basket;
+import pl.kraleppa.model.request.OrderOptions;
 import pl.kraleppa.repository.GameRepository;
 import pl.kraleppa.repository.MyUserRepository;
 import pl.kraleppa.repository.OrderRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,14 +22,21 @@ public class OrderService {
     private final GameRepository gameRepository;
     private final MyUserRepository myUserRepository;
 
-    public void createOrder(String username){
+    public Order createOrder(String username, OrderOptions orderOptions){
         MyUser myUser = myUserRepository.findUserByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found"));
-        Order order = new Order(new Basket(myUser.getBasket()));
+        Order order = new Order(new Basket(myUser.getBasket()), orderOptions);
         myUser.addOrder(order);
 
-        orderRepository.save(order);
+        Order res = orderRepository.save(order);
         myUserRepository.save(myUser);
         order.getOrderedGames().forEach(gameRepository::save);
+        return res;
+    }
+
+    public List<Order> getOrders(String username){
+        MyUser myUser = myUserRepository.findUserByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException("User not found"));
+        return orderRepository.findAllByUser(myUser);
     }
 }

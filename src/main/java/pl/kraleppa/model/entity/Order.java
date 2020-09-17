@@ -1,9 +1,12 @@
 package pl.kraleppa.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 import lombok.*;
 import pl.kraleppa.model.dictionary.OrderState;
 import pl.kraleppa.model.request.Basket;
+import pl.kraleppa.model.request.OrderOptions;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -32,6 +35,9 @@ public class Order {
     private String shipping;
 
     @NotNull
+    private String paymentOption;
+
+    @NotNull
     private LocalDateTime creationDate;
 
     private LocalDateTime payDate;
@@ -47,15 +53,17 @@ public class Order {
     @ManyToMany(mappedBy = "orderList", fetch = FetchType.EAGER)
     private List<Game> orderedGames;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name="USER_FK")
     private MyUser user;
 
-    public Order(Basket basket){
+    public Order(Basket basket, OrderOptions orderOptions){
         this.orderPrice = basket.getTotalPrice();
 
-        this.shipping = "NIC";
-        this.shippingPrice = 0.0;
+        this.shipping = orderOptions.getShipping();
+        this.shippingPrice = orderOptions.getShippingPrice();
+        this.paymentOption = orderOptions.getPaymentOption();
 
         this.creationDate = LocalDateTime.now();
         this.orderState = OrderState.NEW;
