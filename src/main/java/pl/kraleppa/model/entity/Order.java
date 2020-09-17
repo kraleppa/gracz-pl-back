@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -50,8 +51,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderState orderState;
 
-    @ManyToMany(mappedBy = "orderList", fetch = FetchType.EAGER)
-    private List<Game> orderedGames;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
+    private List<OrderElement> orderElements;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
@@ -68,7 +69,9 @@ public class Order {
         this.creationDate = LocalDateTime.now();
         this.orderState = OrderState.NEW;
 
-        this.orderedGames = new ArrayList<>(basket.getGameList());
-        basket.getGameList().forEach(game -> game.getOrderList().add(this));
+        this.orderElements = basket.getGameList().stream().map(game -> new OrderElement(game, this))
+                .collect(Collectors.toList());
+
+
     }
 }

@@ -1,13 +1,11 @@
 package pl.kraleppa.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 import com.sun.istack.NotNull;
 import lombok.*;
-import pl.kraleppa.model.dictionary.Console;
-import pl.kraleppa.model.dictionary.Genre;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -15,10 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Game {
+public class OrderElement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long gameId;
+    private Long elementId;
 
     @NotNull
     private String name;
@@ -26,19 +24,18 @@ public class Game {
     @NotNull
     private Double price;
 
-    @Enumerated(EnumType.STRING)
-    private Genre genre;
-
-    @Enumerated(EnumType.STRING)
-    private Console console;
-
-    @NotNull
-    private String description;
-
     @NotNull
     private String imageUrl;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<MyUser> userList;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ORDER_FK")
+    private Order order;
+
+    public OrderElement(Game game, Order order){
+        this.name = game.getName();
+        this.price = game.getPrice();
+        this.imageUrl = game.getImageUrl();
+        this.order = order;
+    }
 }
