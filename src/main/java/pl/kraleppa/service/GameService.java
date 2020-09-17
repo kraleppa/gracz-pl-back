@@ -52,8 +52,14 @@ public class GameService {
     }
 
     public Game editGame(Game game, Long gameId){
-        game.setGameId(gameId);
-        return gameRepository.save(game);
+        Game prev = gameRepository.findById(gameId).orElseThrow(IllegalArgumentException::new);
+        prev.setConsole(game.getConsole());
+        prev.setDescription(game.getDescription());
+        prev.setGenre(game.getGenre());
+        prev.setImageUrl(game.getImageUrl());
+        prev.setName(game.getName());
+        prev.setPrice(game.getPrice());
+        return gameRepository.save(prev);
     }
 
     public void deleteGame(Long gameId){
