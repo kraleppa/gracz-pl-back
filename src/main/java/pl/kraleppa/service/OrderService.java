@@ -3,6 +3,7 @@ package pl.kraleppa.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.kraleppa.model.entity.Game;
 import pl.kraleppa.model.entity.MyUser;
 import pl.kraleppa.model.entity.Order;
 import pl.kraleppa.model.request.Basket;
@@ -31,6 +32,9 @@ public class OrderService {
         myUser.addOrder(order);
         orderElementRepository.saveAll(order.getOrderElements());
         Order res = orderRepository.save(order);
+        List<Game> gamesList = myUser.getBasket();
+        myUser.getBasket().forEach(myUser::deleteGameFromBasket);
+        gamesList.forEach(gameRepository::save);
         myUserRepository.save(myUser);
         return res;
     }
