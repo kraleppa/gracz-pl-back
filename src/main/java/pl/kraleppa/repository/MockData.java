@@ -90,9 +90,5 @@ public class MockData {
                     .build()
             );
         }
-        basketService.addGameToBasket("kraleppa", 17L);
-
-        orderService.createOrder("kraleppa", new OrderOptions(2.0, "DHL", "Pobranie"));
-
     }
 }
