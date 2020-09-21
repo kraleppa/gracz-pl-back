@@ -43,6 +43,6 @@ public class OrderService {
     public List<Order> getOrders(String username){
         MyUser myUser = myUserRepository.findUserByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found"));
-        return orderRepository.findByUserOrderByCreationDate(myUser);
+        return orderRepository.findByUserOrderByCreationDateDesc(myUser);
     }
 }

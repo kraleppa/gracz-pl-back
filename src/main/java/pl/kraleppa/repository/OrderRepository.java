@@ -7,5 +7,5 @@ import pl.kraleppa.model.entity.Order;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    List<Order> findByUserOrderByCreationDate(MyUser user);
+    List<Order> findByUserOrderByCreationDateDesc(MyUser user);
 }
