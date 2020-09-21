@@ -1,6 +1,7 @@
 package pl.kraleppa.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.kraleppa.model.entity.Game;
@@ -42,6 +43,6 @@ public class OrderService {
     public List<Order> getOrders(String username){
         MyUser myUser = myUserRepository.findUserByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found"));
-        return orderRepository.findAllByUser(myUser);
+        return orderRepository.findByUserOrderByCreationDate(myUser);
     }
 }
