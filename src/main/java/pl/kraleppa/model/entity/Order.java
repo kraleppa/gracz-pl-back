@@ -41,12 +41,6 @@ public class Order {
     @NotNull
     private LocalDateTime creationDate;
 
-    private LocalDateTime payDate;
-
-    private LocalDateTime sendDate;
-
-    private LocalDateTime completionDate;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     private OrderState orderState;

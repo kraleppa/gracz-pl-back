@@ -11,6 +11,7 @@ import pl.kraleppa.service.OrderService;
 import pl.kraleppa.util.JwtUtil;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -50,12 +51,12 @@ public class OrderController {
     }
 
     @GetMapping
-    @RequestMapping("/inprogress")
-    public ResponseEntity<Object> getOrdersInProgress(){
+    @RequestMapping("/all")
+    public ResponseEntity<Object> getOrdersInProgress(@RequestParam Optional<Boolean> inProgress){
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(orderService.getOrdersInProgress());
+                    .body(orderService.getOrdersInProgress(inProgress));
         } catch (Exception e){
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

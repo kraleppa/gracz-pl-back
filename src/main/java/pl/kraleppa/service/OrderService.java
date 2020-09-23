@@ -17,6 +17,7 @@ import pl.kraleppa.repository.OrderRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +48,10 @@ public class OrderService {
         return orderRepository.findByUserOrderByCreationDateDesc(myUser);
     }
 
-    public List<Order> getOrdersInProgress(){
+    public List<Order> getOrdersInProgress(Optional<Boolean> inProgress){
+        if (inProgress.isEmpty() || !inProgress.get()){
+            return orderRepository.findAll();
+        }
         return orderRepository.findAllByOrderStateIsNot(OrderState.SENT);
     }
 
