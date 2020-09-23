@@ -77,4 +77,18 @@ public class OrderController {
                     .body(e.toString());
         }
     }
+
+    @GetMapping
+    @RequestMapping("/credentials")
+    public ResponseEntity<Object> getCredentials(@RequestParam Long orderId){
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(orderService.getCredentials(orderId));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_MODIFIED)
+                    .body(e.toString());
+        }
+    }
 }

@@ -9,6 +9,7 @@ import pl.kraleppa.model.entity.Game;
 import pl.kraleppa.model.entity.MyUser;
 import pl.kraleppa.model.entity.Order;
 import pl.kraleppa.model.request.Basket;
+import pl.kraleppa.model.request.Credentials;
 import pl.kraleppa.model.request.OrderOptions;
 import pl.kraleppa.repository.GameRepository;
 import pl.kraleppa.repository.MyUserRepository;
@@ -59,5 +60,10 @@ public class OrderService {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Order not found"));
         order.setOrderState(orderState);
         return orderRepository.save(order);
+    }
+
+    public Credentials getCredentials(Long orderId){
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        return new Credentials(order.getUser());
     }
 }
