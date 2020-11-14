@@ -340,6 +340,126 @@ Return message
 }
 ```
 
+## Basket API
+### Add game to basket
+
+```http
+POST http://localhost:8080/api/v1/baskets
+```
+
+Params:
+| Param | Value |
+| :--- | :--- |
+| `gameId`  | `long` |
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+
+Example
+```http
+POST http://localhost:8080/api/v1/baskets?gameId=5
+```
+
+Return message
+```javascript
+{
+    "gameList": [
+        {
+            "gameId": 5,
+            "name": "Forza 6",
+            "price": 19.99,
+            "genre": "RACING",
+            "console": "XBOX_ONE",
+            "description": "Całkiem dobra gra!",
+            "imageUrl": "https://www.mobygames.com/images/covers/l/315940-forza-motorsport-6-xbox-one-front-cover.png"
+        }
+    ],
+    "totalPrice": 19.99
+}
+```
+
+### Get user's basket
+
+```http
+GET http://localhost:8080/api/v1/baskets
+```
+
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+
+It returns user's basket, based on JWT.
+
+
+Return message
+```javascript
+{
+    "gameList": [
+        {
+            "gameId": 5,
+            "name": "Forza 6",
+            "price": 19.99,
+            "genre": "RACING",
+            "console": "XBOX_ONE",
+            "description": "Całkiem dobra gra!",
+            "imageUrl": "https://www.mobygames.com/images/covers/l/315940-forza-motorsport-6-xbox-one-front-cover.png"
+        },
+        {
+            "gameId": 17,
+            "name": "Hajlo 2",
+            "price": 79.99,
+            "genre": "SHOOTING",
+            "console": "XBOX_ONE",
+            "description": "Great game!",
+            "imageUrl": "https://s3.gaming-cdn.com/images/products/734/orig/halo-the-master-chief-collection-xbox-one-cover.jpg"
+        }
+    ],
+    "totalPrice": 99.98
+}
+```
+
+### Delete game from basket
+
+```http
+DELETE http://localhost:8080/api/v1/baskets
+```
+
+Params:
+| Param | Value |
+| :--- | :--- |
+| `gameId`  | `long` |
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+
+Example
+```http
+DELETE http://localhost:8080/api/v1/baskets?gameId=17
+```
+
+Return message
+```javascript
+{
+    "gameList": [
+        {
+            "gameId": 5,
+            "name": "Forza 6",
+            "price": 19.99,
+            "genre": "RACING",
+            "console": "XBOX_ONE",
+            "description": "Całkiem dobra gra!",
+            "imageUrl": "https://www.mobygames.com/images/covers/l/315940-forza-motorsport-6-xbox-one-front-cover.png"
+        }
+    ],
+    "totalPrice": 19.99
+}
+```
 
 
 
