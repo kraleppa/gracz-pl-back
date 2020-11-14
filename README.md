@@ -6,6 +6,35 @@
 Backend of Gracz.pl online shop.
 [Link](https://github.com/kraleppa/gracz-pl-web) to frontend
 
+## Authentication
+Gracz.pl has implemented authentication by JSON Web Token.
+
+### Authenticate
+```http
+POST http://localhost:8080/authenticate
+```
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Content-Type` | `application/json` | **Required**|
+
+
+Example body
+```javascript
+{
+    "username": "kraleppa",
+    "password": "password"
+}
+```
+
+Return message 
+```javascript
+{
+    "jwt": "fancy-jwt"
+}
+```
+
 ## Games API
 ### Get all games
 This endpoint has an option to filter games and sort them, also pagination is implemented.
@@ -204,6 +233,112 @@ Headers:
 | :--- | :--- | :--- |
 | `Authorization` | `string` | **Required** JWT |
 | `Content-Type` | `application/json` | **Required**|
+
+## User API
+### Registration
+
+```http
+POST http://localhost:8080/api/v1/users
+```
+
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Content-Type` | `application/json` | **Required**|
+
+
+Example body
+```javascript
+{
+	"username": "testUser",             //unique
+	"password": "testPassword",
+	"email": "test@email.com",          //unique
+	"name": "testName",
+	"surname": "testSurname",
+	"address": "street 15/2",
+	"city": "testCity",
+	"zip": "33-092"
+}
+```
+
+Return message
+```javascript
+{
+    "id": 18,
+    "username": "testUser",
+    "role": "ROLE_USER",
+    "email": "test@email.com",
+    "name": "testName",
+    "surname": "testSurname",
+    "address": "street 15/2",
+    "city": "testCity",
+    "zip": "33-092"
+}
+```
+
+### Get user details
+
+```http
+GET http://localhost:8080/api/v1/users
+```
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+
+Returns information about user, based on JWT.
+
+Return body
+```javascript
+{
+    "id": 18,
+    "username": "testUser",
+    "role": "ROLE_USER",
+    "email": "test@email.com",
+    "name": "testName",
+    "surname": "testSurname",
+    "address": "street 15/2",
+    "city": "testCity",
+    "zip": "33-092"
+}
+```
+
+### Edit user
+
+```http
+PATCH http://localhost:8080/api/v1/users
+```
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+| `Content-Type` | `application/json` | **Required**|
+
+Example body (you can add here any field which you want to change in user)
+```javascript
+{
+	"username": "newName"
+}
+```
+
+
+Return message
+```javascript
+{
+    "id": 18,
+    "username": "newName",
+    "role": "ROLE_USER",
+    "email": "test@email.com",
+    "name": "testName",
+    "surname": "testSurname",
+    "address": "street 15/2",
+    "city": "testCity",
+    "zip": "33-092"
+}
+```
 
 
 
