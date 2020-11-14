@@ -38,57 +38,54 @@ public class MockData {
                 .build()
         );
 
-        for (int i = 0; i < 30; i++){
+        gameRepository.save(Game.builder()
+                .name("Halo")
+                .price(199.99)
+                .genre(Genre.SHOOTING)
+                .console(Console.XBOX_ONE)
+                .description("Świetna gra!")
+                .imageUrl("https://s3.gaming-cdn.com/images/products/734/orig/halo-the-master-chief-collection-xbox-one-cover.jpg")
+                .build()
+        );
 
-            gameRepository.save(Game.builder()
-                    .name("Hejlo"+i)
-                    .price(69.99)
-                    .genre(Genre.SHOOTING)
-                    .console(Console.XBOX_ONE)
-                    .description("Fajna giera ogólnie polecam")
-                    .imageUrl("https://s3.gaming-cdn.com/images/products/734/orig/halo-the-master-chief-collection-xbox-one-cover.jpg")
-                    .build()
-            );
+        gameRepository.save(Game.builder()
+                .name("The last of us II")
+                .price(120.99)
+                .genre(Genre.ACTION)
+                .console(Console.PLAYSTATION_4)
+                .description("Bardzo dobra gra!")
+                .imageUrl("https://a.allegroimg.com/s512/037b18/ced7818d4a9c914abafbd856762a/THE-LAST-OF-US-PART-2-II-PS4-PLAYSTATION-PL-DUBB")
+                .build()
+        );
 
-            gameRepository.save(Game.builder()
-                    .name("The last of us"+i)
-                    .price(420.99)
-                    .genre(Genre.ACTION)
-                    .console(Console.PLAYSTATION_4)
-                    .description("Średnio fajna giera :(")
-                    .imageUrl("https://a.allegroimg.com/s512/037b18/ced7818d4a9c914abafbd856762a/THE-LAST-OF-US-PART-2-II-PS4-PLAYSTATION-PL-DUBB")
-                    .build()
-            );
+        gameRepository.save(Game.builder()
+                .name("Mario Kart 8")
+                .price(43.33)
+                .genre(Genre.RACING)
+                .console(Console.NINTENDO_SWITCH)
+                .description("Przeciętna gra!")
+                .imageUrl("https://i0.wp.com/www.semperludo.com/wp-content/uploads/2017/04/Mario-Kart-8-Deluxe-Switch-cover.jpg?fit=456%2C738&ssl=1")
+                .build()
+        );
 
-            gameRepository.save(Game.builder()
-                    .name("Mario Kart"+i)
-                    .price(21.37)
-                    .genre(Genre.RACING)
-                    .console(Console.NINTENDO_SWITCH)
-                    .description("Średnio fajna giera :(")
-                    .imageUrl("https://i0.wp.com/www.semperludo.com/wp-content/uploads/2017/04/Mario-Kart-8-Deluxe-Switch-cover.jpg?fit=456%2C738&ssl=1")
-                    .build()
-            );
+        gameRepository.save(Game.builder()
+                .name("Forza 6")
+                .price(19.99)
+                .genre(Genre.RACING)
+                .console(Console.XBOX_ONE)
+                .description("Całkiem dobra gra!")
+                .imageUrl("https://www.mobygames.com/images/covers/l/315940-forza-motorsport-6-xbox-one-front-cover.png")
+                .build()
+        );
 
-            gameRepository.save(Game.builder()
-                    .name("Forza"+i)
-                    .price(19.99)
-                    .genre(Genre.RACING)
-                    .console(Console.XBOX_ONE)
-                    .description("Średnio fajna giera :(")
-                    .imageUrl("https://www.mobygames.com/images/covers/l/315940-forza-motorsport-6-xbox-one-front-cover.png")
-                    .build()
-            );
-
-            gameRepository.save(Game.builder()
-                    .name("Gran Turismo"+i)
-                    .price(12.33)
-                    .genre(Genre.RACING)
-                    .console(Console.PLAYSTATION_4)
-                    .description("Średnio fajna giera :(")
-                    .imageUrl("https://ecsmedia.pl/c/gran-turismo-sport-ps-hits-b-iext55519998.jpg")
-                    .build()
-            );
-        }
+        gameRepository.save(Game.builder()
+                .name("Gran Turismo")
+                .price(12.33)
+                .genre(Genre.RACING)
+                .console(Console.PLAYSTATION_4)
+                .description("Super gra!")
+                .imageUrl("https://ecsmedia.pl/c/gran-turismo-sport-ps-hits-b-iext55519998.jpg")
+                .build()
+        );
     }
 }
