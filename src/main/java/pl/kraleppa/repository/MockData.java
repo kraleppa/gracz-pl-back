@@ -27,7 +27,7 @@ public class MockData {
 
         myUserRepository.save(MyUser.builder()
                 .username("kraleppa")
-                .password("password")
+                .password("$2a$10$gzMqpcRE7IpJdLR8/mhCHupgmRu8QWKi/h6g1ANkfpdV8SbkVHEnu")
                 .email("email@costam.pl")
                 .name("Krzysztof")
                 .surname("Nalepa")
