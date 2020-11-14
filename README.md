@@ -6,8 +6,13 @@
 Backend of Gracz.pl online shop.
 [Link](https://github.com/kraleppa/gracz-pl-web) to frontend
 
+
 ## Authentication
 Gracz.pl has implemented authentication by JSON Web Token.
+There are three types of users (roles):
+* Anonymus user - not logged in user
+* User - logged in user
+* Admin - logged in admin
 
 ### Authenticate
 ```http
@@ -128,7 +133,8 @@ GET http://localhost:8080/api/v1/games/2
 }
 ```
 
-### Add game
+### Add game 
+`Admin only`
 
 ```http
 POST http://localhost:8080/api/v1/games
@@ -165,6 +171,7 @@ Return message
 }
 ```
 ### Edit game
+`Admin only`
 
 ```http
 PUT http://localhost:8080/api/v1/games/gameId
@@ -213,6 +220,7 @@ Return message
 ```
 
 ### Delete game
+`Admin only`
 
 ```http
 DELETE http://localhost:8080/api/v1/games/gameId
@@ -234,7 +242,7 @@ Headers:
 | `Authorization` | `string` | **Required** JWT |
 | `Content-Type` | `application/json` | **Required**|
 
-## User API
+## Users API
 ### Registration
 
 ```http
@@ -278,6 +286,7 @@ Return message
 ```
 
 ### Get user details
+`User only`
 
 ```http
 GET http://localhost:8080/api/v1/users
@@ -306,6 +315,7 @@ Return body
 ```
 
 ### Edit user
+`User only`
 
 ```http
 PATCH http://localhost:8080/api/v1/users
@@ -340,8 +350,9 @@ Return message
 }
 ```
 
-## Basket API
+## Baskets API
 ### Add game to basket
+`User only`
 
 ```http
 POST http://localhost:8080/api/v1/baskets
@@ -381,6 +392,7 @@ Return message
 ```
 
 ### Get user's basket
+`User only`
 
 ```http
 GET http://localhost:8080/api/v1/baskets
@@ -423,6 +435,7 @@ Return message
 ```
 
 ### Delete game from basket
+`User only`
 
 ```http
 DELETE http://localhost:8080/api/v1/baskets
@@ -460,6 +473,244 @@ Return message
     "totalPrice": 19.99
 }
 ```
+
+## Orders API
+### Get user's orders
+`User only`
+
+```http
+GET http://localhost:8080/api/v1/orders
+```
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+
+Returns orders of user, based on JWT
+
+Return message
+```javascript
+[
+    {
+        "orderId": 9,
+        "orderPrice": 320.98,
+        "shippingPrice": 19.99,
+        "shipping": "GLS",
+        "paymentOption": "Pobranie",
+        "creationDate": "2020-11-14T19:15:32.805936",
+        "orderState": "SENT",
+        "orderElements": [
+            {
+                "elementId": 7,
+                "name": "Halo",
+                "price": 199.99,
+                "imageUrl": "https://s3.gaming-cdn.com/images/products/734/orig/halo-the-master-chief-collection-xbox-one-cover.jpg"
+            },
+            {
+                "elementId": 8,
+                "name": "The last of us II",
+                "price": 120.99,
+                "imageUrl": "https://a.allegroimg.com/s512/037b18/ced7818d4a9c914abafbd856762a/THE-LAST-OF-US-PART-2-II-PS4-PLAYSTATION-PL-DUBB"
+            }
+        ]
+    }
+]
+```
+### Add order
+`User only`
+```http
+POST http://localhost:8080/api/v1/orders
+```
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+| `Content-Type` | `application/json` | **Required**|
+
+This endpoint takes every item from user's basket and create a new order with theese items.
+
+Example body
+```javascript
+{
+	"shippingPrice": 19.99,
+	"shipping": "UPS",
+	"paymentOption": "PayPal"
+}
+```
+
+Return message
+```
+{
+    "orderId": 8,
+    "orderPrice": 19.99,
+    "shippingPrice": 19.99,
+    "shipping": "UPS",
+    "paymentOption": "PayPal",
+    "creationDate": "2020-11-14T21:34:43.014896",
+    "orderState": "NEW",
+    "orderElements": [
+        {
+            "elementId": 7,
+            "name": "Forza 6",
+            "price": 19.99,
+            "imageUrl": "https://www.mobygames.com/images/covers/l/315940-forza-motorsport-6-xbox-one-front-cover.png"
+        }
+    ]
+}
+```
+
+### Get all orders
+`Admin only`
+```http
+GET http://localhost:8080/api/v1/orders/all
+```
+
+Params:
+| Param | Value |
+| :--- | :--- |
+| `inProgress`  | `boolean` |
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+
+
+Returns every order in system. You can filter orders using inProgress param.
+
+Example return message
+```javascript
+[
+    {
+        "orderId": 8,
+        "orderPrice": 19.99,
+        "shippingPrice": 19.99,
+        "shipping": "UPS",
+        "paymentOption": "PayPal",
+        "creationDate": "2020-11-14T21:34:43.014896",
+        "orderState": "NEW",
+        "orderElements": [
+            {
+                "elementId": 7,
+                "name": "Forza 6",
+                "price": 19.99,
+                "imageUrl": "https://www.mobygames.com/images/covers/l/315940-forza-motorsport-6-xbox-one-front-cover.png"
+            }
+        ]
+    },
+    {
+        "orderId": 12,
+        "orderPrice": 164.32,
+        "shippingPrice": 19.99,
+        "shipping": "GLS",
+        "paymentOption": "Przelew",
+        "creationDate": "2020-11-14T21:38:20.131302",
+        "orderState": "NEW",
+        "orderElements": [
+            {
+                "elementId": 10,
+                "name": "The last of us II",
+                "price": 120.99,
+                "imageUrl": "https://a.allegroimg.com/s512/037b18/ced7818d4a9c914abafbd856762a/THE-LAST-OF-US-PART-2-II-PS4-PLAYSTATION-PL-DUBB"
+            },
+            {
+                "elementId": 11,
+                "name": "Mario Kart 8",
+                "price": 43.33,
+                "imageUrl": "https://i0.wp.com/www.semperludo.com/wp-content/uploads/2017/04/Mario-Kart-8-Deluxe-Switch-cover.jpg?fit=456%2C738&ssl=1"
+            }
+        ]
+    }
+]
+```
+
+### Change order state
+`Admin only`
+```http
+PATCH http://localhost:8080/api/v1/orders
+```
+
+Params:
+| Param | Value |
+| :--- | :--- |
+| `orderState`  | `state` |
+| `orderId`  | `long` |
+
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+
+You can change state of existing order
+
+Example
+```http
+http://localhost:8080/api/v1/orders?orderState=SENT&orderId=12
+```
+
+Return message
+```javascript
+{
+    "orderId": 12,
+    "orderPrice": 164.32,
+    "shippingPrice": 19.99,
+    "shipping": "GLS",
+    "paymentOption": "Przelew",
+    "creationDate": "2020-11-14T21:38:20.131302",
+    "orderState": "SENT",
+    "orderElements": [
+        {
+            "elementId": 10,
+            "name": "The last of us II",
+            "price": 120.99,
+            "imageUrl": "https://a.allegroimg.com/s512/037b18/ced7818d4a9c914abafbd856762a/THE-LAST-OF-US-PART-2-II-PS4-PLAYSTATION-PL-DUBB"
+        },
+        {
+            "elementId": 11,
+            "name": "Mario Kart 8",
+            "price": 43.33,
+            "imageUrl": "https://i0.wp.com/www.semperludo.com/wp-content/uploads/2017/04/Mario-Kart-8-Deluxe-Switch-cover.jpg?fit=456%2C738&ssl=1"
+        }
+    ]
+}
+```
+
+### Get details of order's owner 
+`Admin only`
+```http
+GET http://localhost:8080/api/v1/orders/credentials
+```
+Params:
+| Param | Value |
+| :--- | :--- |
+| `orderId`  | `long` |
+
+
+Headers:
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `Authorization` | `string` | **Required** JWT |
+
+Example
+```http
+GET http://localhost:8080/api/v1/orders/credentials?orderId=8
+```
+
+Return message
+```javascript
+{
+    "email": "email@costam.pl",
+    "name": "Krzysztof",
+    "surname": "Nalepa",
+    "address": "Krakowska 1",
+    "city": "Bibice",
+    "zip": "32-087"
+}
+```
+
 
 
 
