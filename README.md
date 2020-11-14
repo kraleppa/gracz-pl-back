@@ -152,6 +152,12 @@ Headers:
 | `Authorization` | `string` | **Required** JWT |
 | `Content-Type` | `application/json` | **Required**|
 
+Example
+```http
+PUT http://localhost:8080/api/v1/games/2
+```
+
+
 Example body
 ```javascript
 {
@@ -183,6 +189,11 @@ Return message
 DELETE http://localhost:8080/api/v1/games/gameId
 ```
 
+Example
+```http
+DELETE http://localhost:8080/api/v1/games/2
+```
+
 Path variables:
 | Param | Value |
 | :--- | :--- |
@@ -193,6 +204,8 @@ Headers:
 | :--- | :--- | :--- |
 | `Authorization` | `string` | **Required** JWT |
 | `Content-Type` | `application/json` | **Required**|
+
+
 
 
 ## Contributors :hamburger:
